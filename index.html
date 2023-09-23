@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- 
+
+      Advanced Interface Design with CSS | Assignment 1 | Emperor Music Streaming Application
+
+      Christopher Blouin
+
+     -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emperor | Music Streaming Application</title>
+    <!-- Normalize the CSS before applying custom styles. -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!-- Apply custom stylesheet after normalization. -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Link JS with defer attribute, as the page will load first before executing any JS code. -->
+    <script src="js/script.js" defer></script>
+    <!-- Import the ionicons external library so I can pull in their SVG icon data and use them in my document, thanks to iconicons: https://ionic.io/ionicons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <!-- Start of Hero Wrapper -->
+    <div id="hero-wrapper">
+      <!-- Start of Header -->
+      <header>
+        <div id="navigation-wrapper">
+          <!-- Container for the Emperor Logo -->
+          <div class="primary-logo">
+            <a href="index.html">
+              <img
+                src="images/hero-images/emperor-logo-white.svg"
+                alt="Emperor Logo"
+                width="120"
+                title="Home"
+              />
+            </a>
+          </div>
+          <!-- Start of Navigation Menu - The close and open ionicons are hidden until the viewport is 1024px in width, it will display a hamburger menu and close icon when toggled. -->
+          <nav id="toggle-menu">
+            <ion-icon name="close-outline" id="close-menu"></ion-icon>
+            <ul>
+              <!-- Linking to internal sections of my html page. -->
+              <li><a href="#hero">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#download">Download</a></li>
+            </ul>
+          </nav>
+          <!-- End of Navigation Menu -->
+          <ion-icon name="menu-outline" id="open-menu"></ion-icon>
+        </div>
+      </header>
+      <!-- End of Header -->
+      <!-- Start of Hero Content -->
+      <div id="hero">
+        <article>
+          <h1>One Iceberg</h1>
+          <h2>Elevating Sound & Creative Unity.</h2>
+          <p>
+            Experience the excitement and involvement of a lively and welcoming
+            community that revolves around crafting a unique musical journey.
+            Our platform invites you to plunge beneath the iceberg where music
+            enthusiasts unite, share, and discover endless possibilities.
+          </p>
+          <!-- Call to Action Button, this takes the user to the about section. -->
+          <a href="#about">Learn More</a>
+        </article>
+        <figure>
+          <img
+            src="images/hero-images/emperor-hero-logo-graphic.svg"
+            alt="Emperor Logomark"
+          />
+        </figure>
+      </div>
+      <!-- End of Hero Content -->
+    </div>
+    <!-- End of Hero Wrapper -->
+
+    <!-- Start of About Section -->
+    <section id="about">
+      <h2>Our Story</h2>
+      <div>
+        <img
+          src="images/about-images/emperor-arrow.svg"
+          alt="Emperor Arrow Logo Mark"
+        />
+      </div>
+      <p>
+        <!-- About Paragraph Content -->
+        At <strong>Emperor</strong>, our journey begins where inclusivity meets
+        creativity, forming a single iceberg, a <em>vibrant community</em> of
+        like-minded music enthusiasts. Our objective is clear, to inspire
+        creativity and create unity throughout listeners worldwide. With
+        Emperor, we strongly believe music is more than just listening, it’s a
+        <em>journey toward inspiration</em>. And within the iceberg, you aren’t
+        just a listener, you are involved in a <em>diverse</em> and
+        <em>inspiring</em> community, where seamless and creative user
+        experiences are elevated. Join the iceberg, where valuable and
+        meaningful connections are built, and where inspiration has no
+        boundaries.
+      </p>
+    </section>
+    <!-- End of About Section -->
+
+    <!-- Start of Key Features Section -->
+    <section id="features">
+      <h2>Explore Emperor</h2>
+      <!-- Start of Feature Cards Wrapper, This is a grid container featuring a horizontal 3 card layout along the first row, and a section underneath on the second row of the grid. -->
+      <div id="feature-cards">
+        <!-- Start of Custom Playlists Article -->
+        <article>
+          <h3>Custom Playlists</h3>
+          <!-- Thank you to Luicide Icons for this SVG, here is the attribution link: https://lucide.dev/icons/list-music -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-list-music"
+          >
+            <path d="M21 15V6" />
+            <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+            <path d="M12 12H3" />
+            <path d="M16 6H3" />
+            <path d="M12 18H3" />
+          </svg>
+          <p>
+            Emperor provides <strong>Custom Playlists</strong> with enhanced
+            expressions toward a users musical tastes and preferences. Users may
+            curate their musical libraries however they desire.
+          </p>
+        </article>
+        <!-- End of Custom Playlists Article -->
+
+        <!-- Start of Listening Recognition Article -->
+        <article>
+          <h3>Listening Recognition</h3>
+          <!-- Thank you to Lucidie Icons for this SVG, here is the attribution link: https://lucide.dev/icons/ear-->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-ear"
+          >
+            <path
+              d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"
+            />
+            <path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4" />
+          </svg>
+          <p>
+            Emperor's <strong>Listening Recognition</strong> feature elevates
+            music discovery based on listening preferences. Users can dive into
+            a world of musical discoveries and genres matching their tastes,
+            ensuring fresh and exciting content to explore.
+          </p>
+        </article>
+        <!-- End of Listening Recognition Article -->
+
+        <!-- Start of Offline Listening Article -->
+        <article>
+          <h3>Offline Listening</h3>
+          <!-- Thank you to Lucidie Icons for this SVG, here is the attribution link: https://lucide.dev/icons/wifi-off -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-wifi-off"
+          >
+            <line x1="2" x2="22" y1="2" y2="22" />
+            <path d="M8.5 16.5a5 5 0 0 1 7 0" />
+            <path d="M2 8.82a15 15 0 0 1 4.17-2.65" />
+            <path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76" />
+            <path d="M16.85 11.25a10 10 0 0 1 2.22 1.68" />
+            <path d="M5 13a10 10 0 0 1 5.24-2.76" />
+            <line x1="12" x2="12.01" y1="20" y2="20" />
+          </svg>
+          <p>
+            Emperor's <strong>Offline Listening</strong> lets you download your
+            favourite playlists and albums for offline listening anytime and
+            anywhere. Stay connected within your digital iceberg no matter the
+            circumstances.
+          </p>
+        </article>
+        <!-- End of Offline Listening Article -->
+
+        <!-- Start of Iceberg Timelines Section -->
+        <section>
+          <h3>Iceberg Timeline</h3>
+          <p>
+            Emperor sets itself apart through its interactive iceberg, a unique
+            timeline that tracks users' music listening history from day one
+            using the application, providing a musical journey through time.
+            Users can explore their iceberg to discover the evolution of their
+            musical tastes, favourite artists, and listening patterns throughout
+            their history with the application.
+          </p>
+          <p>
+            But it doesn't stop there! Users can click interact with elements
+            within the iceberg to delve deeper, revealing more details about
+            their listening habits and connecting users with hidden gems from
+            the past!
+          </p>
+        </section>
+        <!-- End of Iceberg Timelines Section -->
+      </div>
+      <!-- End of Feature Cards Wrapper -->
+    </section>
+    <!-- End of Key Features Section -->
+
+    <!-- Start of Download Section -->
+    <div id="download">
+      <!-- This download section uses flexbox to stack the items and center the content  -->
+      <article>
+        <h2>Download <strong>Emperor</strong></h2>
+        <p>
+          Experience the vibrant community of music enthusiasts as you take the
+          plunge into the depths of Emperor. Dive into your journey today
+          through Emperor's intuitive application supporting desktop and mobile,
+          or listen hassle free in our lightweight browser alternative allowing
+          you to unearth your true creativity and inspiration!
+        </p>
+        <!-- Flex Container for the download buttons. -->
+        <div class="download-btn-wrapper">
+          <!-- Allow the link and icon to sit next to each other by setting the parent "download-btn-container" to flex.  -->
+          <div class="download-btn-container">
+            <a href="#download" class="download-btn">Download</a>
+            <!-- Thank you to Lucidie Icons for this SVG, here is the attribution link: https://lucide.dev/icons/download -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-download"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" x2="12" y1="15" y2="3" />
+            </svg>
+          </div>
+          <div class="download-btn-container">
+            <a href="#browser" class="download-btn">Browser</a>
+            <!-- Thank you to Lucidie Icons for this SVG, here is the attribution link: https://lucide.dev/icons/globe -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-globe"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" x2="22" y1="12" y2="12" />
+              <path
+                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+              />
+            </svg>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!-- End of Download Section -->
+
+    <!-- Start of Footer -->
+    <footer>
+      <!-- Flex Container for the social bar to line the social icons side by each while maintaining alignment. -->
+      <figure id="social-bar">
+        <img
+          src="images/hero-images/instagram-icon.svg"
+          alt="Instagram Logo Link"
+          width="36"
+        />
+        <img
+          src="images/hero-images/twitter-icon.svg"
+          alt="Twitter Logo Link"
+          width="36"
+        />
+        <img
+          src="images/hero-images/facebook-icon.svg"
+          alt="Facebook Logo Link"
+          width="20"
+        />
+      </figure>
+      <!-- Fictitious Copyright Data -->
+      <p><small>&copy; Emperor | All Rights Reserved | 2023</small></p>
+    </footer>
+    <!-- End of Footer -->
+  </body>
+</html>

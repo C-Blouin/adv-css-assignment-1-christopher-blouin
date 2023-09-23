@@ -1,0 +1,848 @@
+@charset "utf-8";
+
+/*
+
+Assignment 1 - Grid Layouts
+
+Christopher Blouin
+
+*/
+
+/* For users that prefer to not see motion and transition effects */
+@media (prefers-reduced-motion) {
+  body {
+    transition: none;
+  }
+}
+
+/* Import Google Font Famalies, Raleway & Monserrat */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
+
+/* Global document selector to remove any potential box margin or padding issues, while setting the box-sizing to border-box. */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* In the root, I declared a lot of variables to keep my font sizing, colors, and transitions consistent. This also helps me when adjusting colors or typography as I only need to change the variable value in one place.  */
+:root {
+  /* Color Pallete Variables. */
+  --primary-color: #edb162;
+  --light-orange: #ffd195;
+  --white: #ffffff;
+  --slate-black: #222222;
+  --light-slate-black: #2c2c2c;
+  --dark-slate-black: #121212;
+  --transparant: transparent;
+  --tint: rgba(250, 191, 123, 0.05);
+  --hover-tint: rgba(250, 191, 123, 0.2);
+  --slate-tint: rgba(8, 8, 8, 0.05);
+  --clipping-gradient: linear-gradient(
+    280deg,
+    var(--primary-color),
+    var(--light-orange)
+  );
+  /* Font Family Variables. */
+  --heading-font: "Raleway", sans-serif;
+  --body-font: "Montserrat", sans-serif;
+  /* Font Sizing Variables. */
+  --font-xxs: 1.1rem;
+  --font-xs: 1.3rem;
+  --font-sm: 1.4rem;
+  --font-md: 1.6rem;
+  --font-lg: 1.8rem;
+  --font-xlg: 2rem;
+  --font-xxlg: 2.2rem;
+  --hero-heading: 6.4rem;
+  --primary-heading: 4.8rem;
+  --secondary-heading: 4rem;
+  --section-heading: 3.8rem;
+  --sub-heading: 2.8rem;
+  /* Transition Variable. */
+  --transition: all 0.3s ease-in-out;
+}
+
+/* Set the base font-size and line-height on the html element.  */
+html {
+  font-size: 100%;
+  line-height: 1.8;
+  /* When links are clicked, scroll smoothly rather than jumping instanstly there, easier on users eyes. */
+  scroll-behavior: smooth;
+  /* Set global font styles, these will be overwriting in the cascade if need be. */
+  font-family: var(--body-font);
+  color: var(--slate-black);
+}
+
+/* Remove the default padding and margins on all heading elements, this way I have more control over individual elements. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+  /* Overwrite line-height for headings as they are much larger and don't need much spacing between when breaking to a new line.  */
+  line-height: 1.2;
+  /* Assign the heading font variable to all headings. */
+  font-family: var(--heading-font);
+}
+
+/* Global h2 margin-bottom of 2rem to stay consistent in each content section. */
+h2 {
+  margin-bottom: 2rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  font-size: var(--font-xxs);
+}
+
+/* Center all section content text content. */
+section h2,
+section h3,
+section p {
+  text-align: center;
+}
+
+/* Start of Navigation Bar Styles */
+
+/* Set the navigation parent to display flex to allow all children to become flex items. */
+#navigation-wrapper {
+  display: flex;
+  /* Create spacing around the flex container while spacing the children in-between. */
+  justify-content: space-around;
+  /* Add some whitespace to the top and bottom of the container. */
+  padding: 1rem 0;
+  /* Align all children to appear uniform on the cross axis. */
+  align-items: center;
+}
+
+/* Align the logo inside the parent container. */
+.primary-logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Set the navigation unordered list to flex to allow individual control over the elements. */
+nav ul {
+  display: flex;
+  align-items: center;
+}
+
+nav ul li {
+  /* Add some spacing between each list-item with left and right margins. */
+  margin: 0 8px;
+  /* Add whitespace on each list item with padding */
+  padding: 0.6rem 1.25rem;
+}
+
+/* Nav anchor styles, font family, size, weight, and some letter spacing. */
+nav ul li a {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-family: var(--heading-font);
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+}
+
+nav ul li a,
+nav ul li a::before {
+  /* Set up a transition to be used when hovered later on. */
+  transition: 0.3s;
+}
+
+/* Set the links to the primary orange color when hovered over. */
+nav ul li a:hover {
+  color: var(--primary-color);
+}
+
+/* Create an hidden block element before the anchor element, when hovered the width will expand to 100% forming a line above it. */
+nav ul li a::before {
+  display: block;
+  content: "";
+  height: 0.1rem;
+  width: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* When the anchor links are hovered, the above before selector width will be set to 100% with a background color to fill in the line. */
+nav ul li a:hover::before {
+  width: 100%;
+  background-color: var(--primary-color);
+}
+
+/* Nav Toggle menu styles */
+
+/* Hide the mobile navigation hamburger and close icons by default, I'll display these at smaller device widths. */
+#open-menu,
+#close-menu {
+  display: none;
+}
+
+/* Mobile Navigation Media Query (1024px) Device Width */
+@media screen and (max-width: 1024px) {
+  /* Space the logo and mobile icons within the header. */
+  header {
+    justify-content: space-between;
+  }
+
+  /* The logo needs to be slightly smaller on mobile to prevent potential overflow.  */
+  .primary-logo img {
+    width: 120px;
+  }
+
+  /* Set the color and size of the mobile navigation icons. */
+  #open-menu,
+  #close-menu {
+    font-size: 42px;
+    color: white;
+  }
+
+  /* The open hamburger will stay inline with other elements in the parent container. */
+  #open-menu {
+    display: inline;
+  }
+
+  /* Position the close menu absolutely, this will ensure it's in the top right corner when the menu is toggled. */
+  #close-menu {
+    display: block;
+    position: absolute;
+    right: 24px;
+  }
+
+  /* At smaller screens, the header navigation menu will appear off screen by using fixed positioning. */
+  header nav {
+    position: fixed;
+    top: 0;
+    /* Hide the contents of the nav to the right completely. */
+    right: -100%;
+    /* Set a background color, width and height properties to ensure the menu covers the screen when toggled. */
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 100vh;
+    padding: 24px 0;
+    /* Place the nav on the very top of the stack content with z-index. */
+    z-index: 100;
+    /* To allow the menu to float in nicely from the right on click, I added a transition. */
+    transition: 0.6s;
+  }
+
+  /* Set the unordered list parent to flex direction column as it's now a mobile devive, and to prevent overflow. Allows all the children to stack on top of one another. */
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  /* Add some top and bottom margins to each nav item for whitespace. */
+  nav ul li {
+    margin: 1.25rem 0;
+  }
+
+  /* Remove the transition effects that are on desktop when on a mobile device. */
+  nav ul li:hover {
+    transform: none;
+  }
+
+  nav ul li a,
+  nav ul li a::before {
+    transition: none;
+  }
+
+  /* The .show__nav class is important here as it will display or hide the nav element on click, I used JavaScript to toggle this class using add and remove. */
+  .show__nav {
+    right: 0;
+  }
+}
+
+/* End of Navigation Styles */
+
+/* Start of Hero Styles */
+
+/* This wrapper covers the nav and hero section elements, proving a neat background effect with a transparent navigation. I really liked this. */
+#hero-wrapper {
+  background: #252525;
+  background-image: url(../images/hero-images/emperor-darker.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+section {
+  padding: 0 1rem;
+}
+
+/* Center all content in section elements and specifically the #feature-cards and download containers. These all have a max-width assigned to them so I want them all centered using margin auto. */
+section,
+#feature-cards,
+#download {
+  margin: 0 auto;
+}
+
+/* The primary hero section container. */
+#hero {
+  /* Display as grid to allow for the stacking of content on top of one another. */
+  display: grid;
+  max-width: 100%;
+  /* Set up the grid, creating 12 equal columns with 1 fractional unit. */
+  grid-template-columns: repeat(12, 1fr);
+  /* Center all content and items. */
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  /* The container will occupy 100% of the viewport.  */
+  min-height: 100vh;
+  /* Bump the container up slightly with some bottom padding. */
+  padding-bottom: 6rem;
+}
+
+/* This is the primary content child of the hero container */
+#hero > article {
+  /* Positioned in the 3rd column spanning to the 11th column, staying in the first row.. Overlapping the image that is also in the grid container. */
+  grid-area: 1 / 3 / 1 / 11;
+  /* Make sure the content overlaps the image by setting the z-index to a higher value in the stack order.  */
+  z-index: 2;
+}
+
+/* This is the primary image child of the hero container.  */
+#hero > figure {
+  /* Start at the 6th column, ending at the 11th column, stays in the first row. */
+  grid-area: 1 / 6 / 1 / 11;
+  z-index: 1;
+}
+
+/* Keep the image proportions intact by setting a max-width to the image. */
+#hero > figure img {
+  max-width: 100%;
+  /* Cover the container space whenever available. */
+  object-fit: cover;
+}
+
+/* Dynamically adjust the h1 font between two variables depending on the viewport width, rather than needing to use media queries to change the font sizes it can be done with the clamp function. */
+#hero > article h1 {
+  font-size: clamp(var(--section-heading), 5vw, var(--hero-heading));
+}
+
+/* These styles adjust the primary headings by adding a clipping gradient to each, with a fallback if a users browser doesn't support text clipping. */
+#hero > article h1,
+#features h2,
+#features > div > section h3 {
+  color: var(--primary-color);
+  /* Set a fallback color if all of the other styles don't render. */
+  background-color: var(--primary-color);
+  /* Create the gradient. */
+  background-image: var(--clipping-gradient);
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+  /* Use the text as a mask for the background. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+/* Using the clamp function, adjust the font size depending on the viewport width. */
+#hero > article h2 {
+  font-size: clamp(var(--sub-heading), 2vw, var(--section-heading));
+}
+
+#about > h2,
+#download h2,
+#features h2 {
+  font-size: clamp(var(--section-heading), 5vw, var(--secondary-heading));
+}
+
+/* Adjustments to the hero content width and text alignment. */
+#hero > article p {
+  max-width: 800px;
+}
+
+#hero > article h2,
+#hero > article p {
+  text-align: left;
+}
+
+/* Add some much needed whitespace to the hero content elements.  */
+#hero > article h2,
+#hero > article p {
+  margin: 1rem 0 0 0;
+  color: var(--white);
+}
+
+/* Call to action button styles */
+#hero > article a:hover {
+  background-color: var(--hover-tint);
+  transform: translateY(0.25rem);
+}
+
+/* At a max device width of 1200px, these styles will render.  */
+@media screen and (max-width: 1200px) {
+  /* Add some slight padding on the left and right container edges on smaller screens.  */
+  #about > h2,
+  #download h2,
+  #features h2,
+  section {
+    padding: 0 1rem;
+  }
+
+  /* Convert the hero grid container to a single column layout, this will stack the grid children ontop of one another. */
+  #hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 6rem 1rem;
+  }
+
+  /* Alignment additions for the mobile hero section. */
+  #hero > article h2,
+  #hero > article p {
+    text-align: center;
+  }
+
+  #hero > article p {
+    margin: 1.5rem auto;
+  }
+
+  /* Place each of the grid items in the same row and column tracks to allow them to stack in a centered fashion on smaller screens. */
+  #hero > article {
+    grid-area: 1 / 1 / 1 / 8;
+    padding-bottom: 6rem;
+  }
+
+  #hero > figure {
+    grid-area: 1 / 1 / 1 / 8;
+  }
+}
+
+/* Add very small screens of a max width of 600px, adjust the figure image to disappear as it causes some slight visibility issues. */
+@media screen and (max-width: 600px) {
+  #hero > figure img {
+    display: none;
+  }
+}
+
+/* End of Hero Styles */
+
+/* Start of About Styles */
+
+/* Set the about section container to flex and center all the content respectively.  */
+#about {
+  padding: 180px 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Assign a min height of 100% of the viewport height. */
+  min-height: 100vh;
+  /* Add a background image for additonal branding, this will appear on the left side of the viewport while centered. */
+  background-image: url(../images/about-images/half-logo-mark-bg.svg);
+  /* Remove the default behaviour of repeated images. */
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+/* Adjust the logo arrow image size in the about section. */
+#about > div > img {
+  width: 180px;
+  z-index: 1;
+}
+
+/* Set a max width to the primart content to add some uniqueness to the layout.  */
+#about > p {
+  max-width: 1100px;
+  /* Add whitespace with margins and padding.  */
+  margin: 2rem 0;
+  padding: 0 4rem;
+}
+
+/* Dynamically adjust font size of the about h3 using the clamp function. */
+#about h3 {
+  margin: 3rem 0;
+  font-size: clamp(var(--font-xxlg), 5vw, var(--sub-heading));
+  font-weight: 400;
+}
+
+/* End of About Styles */
+
+/* Start of Features Styles */
+
+#features {
+  /* Fallback background color if the image background-image fails to load. */
+  background: var(--dark-slate-black);
+  background: rgb(23, 23, 23);
+  background: radial-gradient(
+      circle,
+      rgba(23, 23, 23, 0.95) 0%,
+      rgba(5, 5, 5, 0.8) 100%
+    ),
+    url(../images/features.bg.jpg);
+  /* Remove default repeating background property. */
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+  /* Create a fixed paralax background effect with background-attachment. */
+  background-attachment: fixed;
+  color: var(--white);
+}
+
+#features,
+#download {
+  padding: 120px 0;
+}
+
+/* Override max-width of previous section elements as I want the cards to occupy the majority of the screen space. */
+#feature-cards {
+  max-width: 1600px;
+}
+
+#features h3 {
+  font-size: clamp(var(--font-md), 5vw, var(--font-lg));
+}
+
+/* Set up a grid template area for the feature card section. */
+#feature-cards {
+  display: grid;
+  grid-template-areas:
+    "card1 card2 card3"
+    "timeline timeline timeline";
+  grid-template-rows: auto;
+  /* White space between the cards. */
+  gap: 4rem 4rem;
+  /* Padding around the feature-cards container. */
+  padding: 95px 3rem;
+}
+
+/* Assign the grid-areas to each of the child elements of the grid container. */
+#feature-cards > article:nth-of-type(1) {
+  grid-area: card1;
+}
+
+#feature-cards > article:nth-of-type(2) {
+  grid-area: card2;
+}
+
+#feature-cards > article:nth-of-type(3) {
+  grid-area: card3;
+}
+
+#feature-cards > section {
+  grid-area: timeline;
+  max-width: 1200px;
+}
+
+#feature-cards > article {
+  padding: 3rem 2rem;
+  /* Key properties for the background gradient transition effect */
+  transition: var(--transition);
+  /* Fallback background color. */
+  background-color: var(--dark-slate-black);
+  /* Gradient background image for the cards. */
+  background-image: linear-gradient(
+    to top right,
+    #111111 0%,
+    #181818 45%,
+    #181818 100%
+  );
+  background-size: 200% auto;
+  border-radius: 0.5rem;
+  /* Children of the article will display as flex items since the parent is set as display flex.  */
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+/* On article card hover, the background gradient image will add a subtle color change to the existing gradient. */
+#feature-cards article:hover {
+  /* Fallback background color */
+  background-color: #1d1d1d;
+  background-image: linear-gradient(
+    to top right,
+    #1d1d1d 0%,
+    #161616 45%,
+    #0f0f0f 100%
+  );
+  /* Subtle transform that allows the cards to move upward -0.5rem on hover. */
+  transform: translateY(-0.5rem);
+  /* Position the gradient at the top and center of the primary element. */
+  background-position: top center;
+}
+
+/* Card SVG styles. */
+#feature-cards > article svg {
+  /* Set a fixed height and width so all card icons are consistent.  */
+  height: 52px;
+  width: 52px;
+  /* Set up a transition for later when the article cards are hovered. */
+  transition: var(--transition);
+  margin: 2rem 0;
+  stroke: var(--primary-color);
+}
+
+/* When the feature cards are hovered, the svg icons will rotate 360 degrees on the Y axis, adds a neat spin effect. */
+#feature-cards article:hover svg {
+  transform: rotateY(360deg);
+}
+
+/* Add some auto hyphens to the card content to allow the content to fit accordingly.  */
+#feature-cards > article p {
+  hyphens: auto;
+}
+
+/* Strong tags within the article paragraph content will appear in the primary orange.  */
+#feature-cards > article p strong {
+  color: var(--primary-color);
+}
+
+/* Set the card headings to the color white */
+#feature-cards article h3 {
+  color: var(--white);
+}
+
+/* Adjust the "Iceberg Timelines" font size using the clamp function */
+#feature-cards > section h3 {
+  font-size: clamp(var(--font-xxlg), 5vw, var(--sub-heading));
+  /* Add some whitespace to spread the card content and timeline content apart slightly. */
+  margin: 3rem 0;
+}
+
+/* The "Iceberg Timeline" content will have a max-wdith as I wanted a more interesting grid layout. */
+#feature-cards > section p {
+  max-width: 1100px;
+  /* Center all of the content with margin: 0 auto; */
+  margin: 0 auto;
+}
+
+/* Adjust the width of second paragraph in the "Iceberg Timeline" section, creating a pyramid shape effect. */
+#feature-cards > section p:nth-of-type(2) {
+  max-width: 900px;
+  /* Some slight spacing betweent the two paragraph blocks.  */
+  margin-top: 2rem;
+}
+
+/* Add Device sizes of a max-width of 1366px in the viewport, the card grid container will change into a single column layout with all the children stacking vertically.  */
+@media screen and (max-width: 1366px) {
+  #feature-cards {
+    max-width: 800px;
+    /* Adjust the template areas to stack all the content for smaller screens and prevent overflow. */
+    grid-template-areas:
+      "card1 card1 card1"
+      "card2 card2 card2"
+      "card3 card3 card3"
+      "timeline timeline timeline";
+    padding: 95px 2rem;
+  }
+}
+
+/* End of Features Styles */
+
+/* Start of Download Styles */
+
+/* Center all content in the #download section container. Apply a max-width and min-height to stay consistent with all of the other page sections.  */
+#download {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  max-width: 1366px;
+}
+
+#download h2 {
+  font-weight: 400;
+}
+
+/* Apply orange colouring to only the "Emeperor" heading text in teh #download section. */
+#download h2 strong {
+  color: var(--primary-color);
+}
+
+/* The child container of the download section will be set to display flex to allow all of the children to stack and center nicely. */
+#download > article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Tighten up the download paragraph content. */
+#download p {
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+/* Download achor button styles. */
+#hero > article a {
+  /* Add some white space with padding and margins. */
+  padding: 0.75rem 1.5rem;
+  margin-top: 2rem;
+  /* Round the corners of the anchor buttons. */
+  border-radius: 2rem;
+  /* Colour and outline styles. */
+  outline: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  letter-spacing: 0.05rem;
+  /* Set up a transition for when the button will be hovered. */
+  transition: var(--transition);
+}
+
+#hero > article a,
+.download-btn-container {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  margin-top: 2rem;
+  border-radius: 2rem;
+  letter-spacing: 0.05rem;
+  transition: var(--transition);
+}
+
+.download-btn-container {
+  background-color: var(--dark-slate-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: relative;
+  gap: 1rem;
+  width: 200px;
+  /* Key properties for the background gradient transition effect */
+  transition: var(--transition);
+  background-size: 200% auto;
+}
+
+.download-btn-container:hover {
+  /* Background color fallback if the background image fails to load or isn't supported in a users browser. */
+  background-color: #141414;
+  background-image: linear-gradient(
+    to top right,
+    #2b2b2b 0%,
+    #1a1a1a 45%,
+    #131313 100%
+  );
+  transform: translateY(-0.5rem);
+}
+
+/* Set the button wrapper container to display flex so the children elements will display as flex items. */
+.download-btn-wrapper {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Set the color of the anchor text to the primary orange. */
+.download-btn-container a {
+  color: var(--primary-color);
+}
+
+/* Adjust the anchor text color to the lighter orange from the root variables, it will allow for some distinction on if the button is actually being hovered over. */
+.download-btn-container:hover a {
+  color: var(--light-orange);
+}
+
+/* 
+
+Use the before pseudo to allow the entire button container to become clickable by setting the height and width proerpties to 100% from the top and left sides through absolute positioning.
+
+*/
+.download-btn-container a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Adjust the download button base fills and fill on element hover. */
+
+.download-btn-container svg {
+  stroke: var(--primary-color);
+}
+
+.download-btn-container:hover svg {
+  stroke: var(--light-orange);
+}
+
+/* End of Download Styles */
+
+/* Start of Footer Styles */
+
+footer {
+  /* Background color fallback if the background image fails to load or isn't supported in a users browser. */
+  background-color: var(--dark-slate-black);
+  background-image: linear-gradient(
+    to top right,
+    #202020 0%,
+    #1a1a1a 45%,
+    #131313 100%
+  );
+  color: var(--white);
+  /* Add some whitespace in the base footer element. Only the top and bottom. */
+  padding: 1.5rem 0;
+  /* Set the container to flex so all children elements will center themselves based on the justify and align properties. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#social-bar {
+  /* Set the children of the social bar to flex, so they will line up at the bottom of the footer. */
+  display: flex;
+  gap: 3rem;
+  margin: 1rem 0;
+}
+
+/* Sert up a trnasition effect on the social bar icon images. */
+#social-bar img {
+  transition: var(--transition);
+}
+
+/* On hover of the footer social icons, they will transform with scale and rotate slight to signify that they are clickable links. */
+#social-bar img:hover {
+  transform: scale(1.1) rotate(20deg);
+  cursor: pointer;
+}
+
+/* End of Footer Styles */
+
+/* Mobile Device Media Query for adding some whitespace between the primary sections and feature articles. As well adjust he download button flex wrapper to stack the flex items. */
+@media screen and (max-width: 768px) {
+  #about > p,
+  #download > p {
+    padding: 0 1rem;
+  }
+
+  #feature-cards {
+    padding: 65px 1rem;
+  }
+
+  #feature-cards > article {
+    padding: 2rem 3rem;
+  }
+
+  .download-btn-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
