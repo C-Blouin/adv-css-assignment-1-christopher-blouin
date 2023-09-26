@@ -826,6 +826,51 @@ footer {
 
 /* End of Footer Styles */
 
+/* Start of Back to Top Button Styles */
+#back-to-top {
+  border: none;
+  /* Hide the button, it will show up once the corresponding JavaScript window positioning code is executed. */
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 60px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--dark-slate-black);
+  /* Set the z-index to the top of the stack order, to allow the button to be visible anywhere in the document. */
+  z-index: 10;
+  cursor: pointer;
+  /* Set the opacity, transition, and animation properties for keyframe animation */
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  animation: fadeIn 0.3s forwards;
+}
+
+/* Change the button colors on hover to indicate to the user the element is clickable. */
+#back-to-top:hover {
+  background-color: var(--light-orange);
+  color: var(--white);
+}
+
+/* Back to Top Button Keyframes */
+@keyframes fadeIn {
+  
+  /* Keyframes to control the fade in and fade out of the back to top button. */
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* End of Back to Top Button Styles */
+
 /* Mobile Device Media Query for adding some whitespace between the primary sections and feature articles. As well adjust he download button flex wrapper to stack the flex items. */
 @media screen and (max-width: 768px) {
   #about > p,
