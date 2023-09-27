@@ -1,4 +1,4 @@
-# Emeperor Streaming Application - ADV CSS Assignment 1
+# Emperor Streaming Application - ADV CSS Assignment 1
 
 This Application was developed during my third semester of the Interactive Media Design - Web program at Georgian College. This application is a fictitious music streaming application to allow practice branding a site with CSS. 
 
